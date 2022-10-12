@@ -3,8 +3,8 @@ import { Model, ObjectID } from "@tsed/mongoose";
 
 @Model()
 export class WeatherModel {
-  @Property()
-  _id: ObjectID;
+  @ObjectID("id")
+  _id: string;
 
   @Property()
   city: string;
