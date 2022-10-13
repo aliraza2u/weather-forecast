@@ -7,7 +7,19 @@ export class WeatherModel {
   _id: string;
 
   @Property()
+  longitude: number;
+
+  @Property()
+  latitude: number;
+
+  @Property()
+  temp: number;
+
+  @Property()
   city: string;
+
+  @Property()
+  country: string;
 
   @Property()
   @Default(new Date())
