@@ -11,6 +11,7 @@ import {
   Returns,
 } from "@tsed/schema";
 import axios from "axios";
+import { WeatherResultModel } from "../../RestModel";
 import { fetchWeather } from "../../client";
 import { WeatherModel } from "../../models/WeatherModel";
 import { WeatherService } from "../../services/WeatherService";
@@ -36,11 +37,10 @@ export class WeatherController {
   private weatherService: WeatherService;
 
   @Get("/")
-  @Returns(200, Object).Of(Object)
+  @Returns(200, WeatherResultModel).Of(WeatherResultModel)
   public async getWeatherList(@QueryParams() query: WeatherQueryParams) {
     const currentWeather = await fetchWeather(query);
     if (!currentWeather) throw new NotFound("Weather not found");
-    // console.log("current weather---------", currentWeather.data);
     return currentWeather;
     // return await this.weatherService.getWeatherList();
   }
