@@ -1,4 +1,4 @@
-import { ArrayOf, Property } from "@tsed/schema";
+import { ArrayOf, Property, Required } from "@tsed/schema";
 
 class PostionModel {
   @Property() public readonly lon: number;
@@ -50,4 +50,16 @@ export class WeatherResultModel {
   @Property() public readonly id: number;
   @Property() public readonly name: string;
   @Property() public readonly cod: number;
+}
+
+export class CreateWeatherBody {
+  @Required() public readonly longitude: number;
+  @Required() public readonly latitude: number;
+  @Required() public readonly temp: number;
+  @Required() public readonly city: string;
+  @Required() public readonly country: string;
+}
+
+export class UpdateWeatherBody extends CreateWeatherBody {
+  @Required() public readonly id: string;
 }

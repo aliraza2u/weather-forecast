@@ -10,6 +10,10 @@ class CreateWeather {
   country: string;
 }
 
+class UpdateWeather extends CreateWeather {
+  id: string;
+}
+
 @Injectable()
 export class WeatherService {
   constructor(
@@ -29,10 +33,9 @@ export class WeatherService {
   }
 
   public async updateWeather(
-    id: string,
-    data: CreateWeather
+    data: UpdateWeather
   ): Promise<WeatherModel | null> {
-    return await this.weatherModel.findByIdAndUpdate(id, data);
+    return await this.weatherModel.findByIdAndUpdate(data.id, data);
   }
 
   public async deleteWeather(id: string): Promise<null> {

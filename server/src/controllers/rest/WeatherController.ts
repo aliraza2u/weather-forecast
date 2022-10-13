@@ -10,8 +10,11 @@ import {
   Required,
   Returns,
 } from "@tsed/schema";
-import axios from "axios";
-import { WeatherResultModel } from "../../RestModel";
+import {
+  CreateWeatherBody,
+  UpdateWeatherBody,
+  WeatherResultModel,
+} from "../../RestModel";
 import { fetchWeather } from "../../client";
 import { WeatherModel } from "../../models/WeatherModel";
 import { WeatherService } from "../../services/WeatherService";
@@ -24,11 +27,6 @@ class WeatherQueryParams {
   @Property() public readonly city: string;
   @Property() public readonly longitude: string;
   @Property() public readonly latitude: string;
-}
-
-class UpdateWeatherBody {
-  @Property() public readonly id: string;
-  @Property() public readonly data: WeatherModel;
 }
 
 @Controller("/weather")
@@ -68,15 +66,14 @@ export class WeatherController {
 
   @Post("/")
   @Returns(200, WeatherModel).Of(WeatherModel)
-  public async postWeather(@BodyParams() body: WeatherModel) {
+  public async postWeather(@BodyParams() body: CreateWeatherBody) {
     return await this.weatherService.createWeather(body);
   }
 
   @Put("/")
   @Returns(200, WeatherModel).Of(WeatherModel)
   public async updateWeather(@BodyParams() body: UpdateWeatherBody) {
-    const { id, data } = body;
-    return await this.weatherService.updateWeather(id, data);
+    return await this.weatherService.updateWeather(body);
   }
 
   @Delete("/:id")
