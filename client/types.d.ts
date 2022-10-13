@@ -41,3 +41,8 @@ export interface WeatherApiTypes {
   name: string;
   cod: number;
 }
+
+export interface PositionTypes {
+  latitude: number | null;
+  longitude: number | null;
+}

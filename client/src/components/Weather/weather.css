@@ -1,3 +1,9 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .weatherWrapper {
   background: rgb(0, 136, 255);
   background: linear-gradient(
@@ -7,19 +13,23 @@
   );
   box-shadow: 0px 0px 5px #d3d3d3;
   padding: 32px;
+  color: #ffffff;
+  width: 60%;
+  padding: 32px;
+  height: 40vh;
 }
 .searchWrapper {
   display: flex;
   align-items: center;
-  width: 360px;
   justify-content: space-between;
 }
 .searchWrapper input {
   background-color: #ffffff;
   border: 1px solid #777;
-  width: 250px;
+  width: 80%;
   height: 35px;
   outline: none;
+  color: black;
 }
 .searchWrapper svg {
   color: #ffffff;
@@ -36,4 +46,28 @@
   color: #ffffff;
   font-weight: 600;
   font-size: 14px;
+}
+.currentWeather {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.statistics p {
+  margin: 0;
+}
+.loading {
+  width: 100%;
+  height: 40vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.weatherIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.weatherIcon p {
+  font-size: 14px;
+  font-weight: 600;
 }

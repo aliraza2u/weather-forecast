@@ -3,17 +3,17 @@ import axios from "axios";
 const baseURL = "https://api.openweathermap.org/data/2.5/weather";
 
 export const fetchWeather = async (data: {
-  country?: string;
+  city?: string;
   longitude?: string;
   latitude?: string;
 }) => {
-  const { country, longitude, latitude } = data;
+  const { city, longitude, latitude } = data;
   try {
     return await axios({
       method: "GET",
       baseURL,
       params: {
-        q: country && country,
+        q: city && city,
         lat: latitude && latitude,
         lon: longitude && longitude,
         units: "metric",

@@ -1,6 +1,6 @@
 import { Controller, Inject } from "@tsed/di";
 import { NotFound } from "@tsed/exceptions";
-import { BodyParams, PathParams } from "@tsed/platform-params";
+import { BodyParams, PathParams, QueryParams } from "@tsed/platform-params";
 import {
   Delete,
   Get,
@@ -19,6 +19,12 @@ class WeatherParams {
   @Required() public readonly id: string;
 }
 
+class WeatherQueryParams {
+  @Property() public readonly city: string;
+  @Property() public readonly longitude: string;
+  @Property() public readonly latitude: string;
+}
+
 class UpdateWeatherBody {
   @Property() public readonly id: string;
   @Property() public readonly data: WeatherModel;
@@ -31,11 +37,8 @@ export class WeatherController {
 
   @Get("/")
   @Returns(200, Object).Of(Object)
-  public async getWeatherList() {
-    const currentWeather = await fetchWeather({
-      longitude: "74.3436",
-      latitude: "31.5497",
-    });
+  public async getWeatherList(@QueryParams() query: WeatherQueryParams) {
+    const currentWeather = await fetchWeather(query);
     if (!currentWeather) throw new NotFound("Weather not found");
     // console.log("current weather---------", currentWeather.data);
     return currentWeather;
