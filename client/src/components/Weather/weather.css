@@ -1,0 +1,39 @@
+.weatherWrapper {
+  background: rgb(0, 136, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 136, 255, 1) 0%,
+    rgba(4, 96, 181, 0.9850533963585434) 61%
+  );
+  box-shadow: 0px 0px 5px #d3d3d3;
+  padding: 32px;
+}
+.searchWrapper {
+  display: flex;
+  align-items: center;
+  width: 360px;
+  justify-content: space-between;
+}
+.searchWrapper input {
+  background-color: #ffffff;
+  border: 1px solid #777;
+  width: 250px;
+  height: 35px;
+  outline: none;
+}
+.searchWrapper svg {
+  color: #ffffff;
+}
+.searchWrapper svg:hover {
+  cursor: pointer;
+}
+.searchWrapper span {
+  color: #ffffff;
+  font-size: 22px;
+}
+
+.timeWrapper {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+}
