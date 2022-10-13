@@ -30,7 +30,7 @@ const Weather = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${process.env.REACT_APP_API_KEY}/rest/weather?latitude=${location.latitude}&longitude=${location.longitude}&city=${filter}`
+        `${process.env.REACT_APP_BASEURL}/rest/weather?latitude=${location.latitude}&longitude=${location.longitude}&city=${filter}`
       );
       setWeatherData(data);
     } catch (error) {
