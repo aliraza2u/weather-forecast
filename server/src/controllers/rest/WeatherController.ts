@@ -1,4 +1,5 @@
 import { Controller, Inject } from "@tsed/di";
+import { NotFound } from "@tsed/exceptions";
 import { BodyParams, PathParams } from "@tsed/platform-params";
 import {
   Delete,
@@ -9,7 +10,9 @@ import {
   Required,
   Returns,
 } from "@tsed/schema";
-import { WeatherModel } from "src/models/WeatherModel";
+import axios from "axios";
+import { fetchWeather } from "../../client";
+import { WeatherModel } from "../../models/WeatherModel";
 import { WeatherService } from "../../services/WeatherService";
 
 class WeatherParams {
@@ -27,9 +30,16 @@ export class WeatherController {
   private weatherService: WeatherService;
 
   @Get("/")
-  @Returns(200, Array).Of(WeatherModel)
+  @Returns(200, Object).Of(Object)
   public async getWeatherList() {
-    return await this.weatherService.getWeatherList();
+    const currentWeather = await fetchWeather({
+      longitude: "74.3436",
+      latitude: "31.5497",
+    });
+    if (!currentWeather) throw new NotFound("Weather not found");
+    // console.log("current weather---------", currentWeather.data);
+    return currentWeather;
+    // return await this.weatherService.getWeatherList();
   }
 
   @Get("/:id")
