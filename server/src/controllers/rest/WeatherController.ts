@@ -18,6 +18,7 @@ import {
 import { fetchWeather } from "../../client";
 import { WeatherModel } from "../../models/WeatherModel";
 import { WeatherService } from "../../services/WeatherService";
+import { query } from "express";
 
 class WeatherParams {
   @Required() public readonly id: string;
@@ -29,23 +30,49 @@ class WeatherQueryParams {
   @Property() public readonly latitude: string;
 }
 
+class ForecastQueryParams {
+  @Property() public readonly city: string;
+  @Property() public readonly longitude: string;
+  @Property() public readonly latitude: string;
+  @Property() public readonly cnt: number;
+}
+
 @Controller("/weather")
 export class WeatherController {
   @Inject()
   private weatherService: WeatherService;
 
-  @Get("/open")
+  // @Get("/api")
+  // @Returns(200, WeatherResultModel).Of(WeatherResultModel)
+  // public async getOpenWeather(@QueryParams() query: WeatherQueryParams) {
+  //   const currentWeather = await fetchWeather(query);
+  //   if (!currentWeather) throw new NotFound("Weather not found");
+  //   const { coord, main, sys, name } = currentWeather.data;
+  //   const data = {
+  //     longitude: coord.lon,
+  //     latitude: coord.lat,
+  //     temp: main.temp,
+  //     city: name,
+  //     country: sys.country,
+  //     population: "ddd",
+  //   };
+  //   await this.weatherService.createWeather(data);
+  //   return currentWeather;
+  // }
+
+  @Get("/forecast")
   @Returns(200, WeatherResultModel).Of(WeatherResultModel)
-  public async getOpenWeather(@QueryParams() query: WeatherQueryParams) {
+  public async getForecast(@QueryParams() query: ForecastQueryParams) {
     const currentWeather = await fetchWeather(query);
     if (!currentWeather) throw new NotFound("Weather not found");
-    const { coord, main, sys, name } = currentWeather.data;
+    const { city, list } = currentWeather.data;
     const data = {
-      longitude: coord.lon,
-      latitude: coord.lat,
-      temp: main.temp,
-      city: name,
-      country: sys.country,
+      longitude: city.coord.lon,
+      latitude: city.coord.lat,
+      temp: list[0].main.temp,
+      city: city.name,
+      country: city.country,
+      population: city.population,
     };
     await this.weatherService.createWeather(data);
     return currentWeather;

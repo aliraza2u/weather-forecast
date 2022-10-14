@@ -22,6 +22,9 @@ export class WeatherModel {
   country: string;
 
   @Property()
+  population: string;
+
+  @Property()
   @Default(new Date())
   createdAt: Date;
 

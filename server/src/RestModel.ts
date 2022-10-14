@@ -58,6 +58,7 @@ export class CreateWeatherBody {
   @Required() public readonly temp: number;
   @Required() public readonly city: string;
   @Required() public readonly country: string;
+  @Required() public readonly population: string;
 }
 
 export class UpdateWeatherBody extends CreateWeatherBody {

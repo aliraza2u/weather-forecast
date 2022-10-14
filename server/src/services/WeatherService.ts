@@ -8,6 +8,7 @@ class CreateWeather {
   temp: number;
   city: string;
   country: string;
+  population: string;
 }
 
 class UpdateWeather extends CreateWeather {
