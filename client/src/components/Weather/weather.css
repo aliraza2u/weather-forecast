@@ -16,7 +16,7 @@
   color: #ffffff;
   width: 60%;
   padding: 32px;
-  height: 40vh;
+  height: 70vh;
 }
 .searchWrapper {
   display: flex;
@@ -70,4 +70,15 @@
 .weatherIcon p {
   font-size: 14px;
   font-weight: 600;
+}
+.dailyforecast {
+  font-weight: 600;
+}
+.weatherCardWrapper {
+  display: flex;
+  justify-content: space-between;
+  overflow-x: scroll;
+  border-top: 2px solid #ffffff;
+  padding-top: 40px;
+  margin-top: 20px;
 }

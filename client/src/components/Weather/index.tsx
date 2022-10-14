@@ -2,9 +2,14 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import "./weather.css";
 import { MdSearch, MdLocationPin } from "react-icons/md";
 import { DAYS, MONTHS } from "../../../constant";
-import { PositionTypes, WeatherApiTypes } from "../../../types";
+import {
+  ForecastListType,
+  PositionTypes,
+  WeatherApiTypes,
+} from "../../../types";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
+import WeatherCard from "../WeatherCard";
 
 const Weather = () => {
   const [weatherData, setWeatherData] = useState<WeatherApiTypes | any>();
@@ -74,6 +79,7 @@ const Weather = () => {
     minute: "numeric",
     hour12: true,
   });
+  console.log(weatherData && weatherData.list);
 
   return (
     <div className="main">
@@ -121,6 +127,20 @@ const Weather = () => {
                 <p>Min Temp: {weatherData?.list[0]?.main.temp_min}</p>
                 <p>Max Temp:{weatherData?.list[0]?.main.temp_max}</p>
                 <p>Humidity: {weatherData?.list[0]?.main.humidity}%</p>
+              </div>
+            </div>
+            <div>
+              <p className="dailyforecast">Forecaset</p>
+              <div className="weatherCardWrapper">
+                {weatherData?.list?.map((x: ForecastListType) => (
+                  <WeatherCard
+                    key={x.dt_txt}
+                    day={x.dt_txt}
+                    icon={x.weather[0].icon}
+                    temp={x.main.temp}
+                    weather={x.weather[0].main}
+                  />
+                ))}
               </div>
             </div>
           </>
