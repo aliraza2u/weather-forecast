@@ -61,7 +61,7 @@ export class WeatherController {
   // }
 
   @Get("/forecast")
-  @Returns(200, WeatherResultModel).Of(WeatherResultModel)
+  @Returns(200, Object).Of(Object)
   public async getForecast(@QueryParams() query: ForecastQueryParams) {
     const currentWeather = await fetchWeather(query);
     if (!currentWeather) throw new NotFound("Weather not found");
@@ -75,7 +75,7 @@ export class WeatherController {
       population: city.population,
     };
     await this.weatherService.createWeather(data);
-    return currentWeather;
+    return currentWeather.data;
   }
 
   @Get("/")

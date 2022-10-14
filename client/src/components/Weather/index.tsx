@@ -7,7 +7,7 @@ import axios from "axios";
 import { Circles } from "react-loader-spinner";
 
 const Weather = () => {
-  const [weatherData, setWeatherData] = useState<WeatherApiTypes>();
+  const [weatherData, setWeatherData] = useState<WeatherApiTypes | any>();
   const [input, setInput] = useState<string>("");
   const [filter, setFilter] = useState<string>("");
   const [location, setLocation] = useState<PositionTypes>({
@@ -30,7 +30,9 @@ const Weather = () => {
     try {
       setLoading(true);
       const { data } = await axios.get(
-        `${process.env.REACT_APP_BASEURL}/rest/weather/open?latitude=${location.latitude}&longitude=${location.longitude}&city=${filter}`
+        `http://localhost:4000/rest/weather/forecast?latitude=${
+          location.latitude
+        }&longitude=${location.longitude}&city=${filter}&cnt=${5}`
       );
       setWeatherData(data);
     } catch (error) {
@@ -41,7 +43,7 @@ const Weather = () => {
   };
 
   const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
-    setInput(event.target.value);
+    setInput(event.target.value.toLocaleLowerCase());
   };
 
   const getLocation = () => {
@@ -99,25 +101,26 @@ const Weather = () => {
             </div>
             <div className="location">
               <h3>
-                {weatherData?.name}, {weatherData?.sys.country}
+                {weatherData?.city?.name}, {weatherData?.city?.country}
               </h3>
             </div>
             <div className="currentWeather">
               <div className="weatherIcon">
                 <img
-                  src={` http://openweathermap.org/img/wn/${weatherData?.weather?.[0].icon}@2x.png`}
+                  src={`http://openweathermap.org/img/wn/${weatherData?.list[0]?.weather?.[0].icon}@2x.png`}
                   alt="weather"
                 />
-                <p>{weatherData?.weather?.[0].main}</p>
+                <p>{weatherData?.list[0]?.weather?.[0].main}</p>
               </div>
 
               <h2>
-                {weatherData?.main.temp || "Loading..."} <span>&#8451;</span>
+                {weatherData?.list[0]?.main.temp || "Loading..."}{" "}
+                <span>&#8451;</span>
               </h2>
               <div className="statistics">
-                <p>Min Temp: {weatherData?.main.temp_min}</p>
-                <p>Max Temp:{weatherData?.main.temp_max}</p>
-                <p>Humidity: {weatherData?.main.humidity}%</p>
+                <p>Min Temp: {weatherData?.list[0]?.main.temp_min}</p>
+                <p>Max Temp:{weatherData?.list[0]?.main.temp_max}</p>
+                <p>Humidity: {weatherData?.list[0]?.main.humidity}%</p>
               </div>
             </div>
           </>
