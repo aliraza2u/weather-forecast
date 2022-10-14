@@ -10,15 +10,10 @@ import {
   Required,
   Returns,
 } from "@tsed/schema";
-import {
-  CreateWeatherBody,
-  UpdateWeatherBody,
-  WeatherResultModel,
-} from "../../RestModel";
+import { CreateWeatherBody, UpdateWeatherBody } from "../../RestModel";
 import { fetchWeather } from "../../client";
 import { WeatherModel } from "../../models/WeatherModel";
 import { WeatherService } from "../../services/WeatherService";
-import { query } from "express";
 
 class WeatherParams {
   @Required() public readonly id: string;
@@ -41,24 +36,6 @@ class ForecastQueryParams {
 export class WeatherController {
   @Inject()
   private weatherService: WeatherService;
-
-  // @Get("/api")
-  // @Returns(200, WeatherResultModel).Of(WeatherResultModel)
-  // public async getOpenWeather(@QueryParams() query: WeatherQueryParams) {
-  //   const currentWeather = await fetchWeather(query);
-  //   if (!currentWeather) throw new NotFound("Weather not found");
-  //   const { coord, main, sys, name } = currentWeather.data;
-  //   const data = {
-  //     longitude: coord.lon,
-  //     latitude: coord.lat,
-  //     temp: main.temp,
-  //     city: name,
-  //     country: sys.country,
-  //     population: "ddd",
-  //   };
-  //   await this.weatherService.createWeather(data);
-  //   return currentWeather;
-  // }
 
   @Get("/forecast")
   @Returns(200, Object).Of(Object)
